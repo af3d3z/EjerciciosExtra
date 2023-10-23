@@ -80,6 +80,5 @@ public class Kaprekar {
         int num = 5000;
         int[] arrays = convertToArray(num);
         System.out.println(constanteKaprekar(arrays));
-        System.out.println("I want your love and i want your revenge.");
     }
 }
