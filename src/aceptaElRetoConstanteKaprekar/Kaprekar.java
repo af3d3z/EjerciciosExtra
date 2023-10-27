@@ -81,7 +81,7 @@ public class Kaprekar {
 
 
     public static void main(String[]args) throws Exception {
-        int[] array = {3,5,2,4};
+        int[] array = {1,1,2,1};
         int num = 5000;
         int[] arrays = convertToArray(num);
         System.out.println(Arrays.toString(array));
