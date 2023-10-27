@@ -6,37 +6,26 @@ import java.util.Collections;
 
 public class Kaprekar {
     public static int constanteKaprekar(int[] numbers) throws Exception {
-        // variable declaration
-        int result = 0;
-        int[] greaterArray;
-        int greaterNum = convertToInt(ascendOrder(numbers));;
-        int[] lesserArray = numbers;
-        int lesserNumber;
+        // declaración de variables
         int counter = 0;
+        int result = 0;
+        int bigger = 0;
+        int smaller = 0;
 
-        //check if the array of numbers has at least two different numbers
-        for(int i = 0; i<numbers.length; i++){
-            for(int j = 0; j<numbers.length; j++){
-                if(numbers[i] == numbers[j])
-                    counter++;
+        if(convertToInt(numbers) == 6174){
+            return 0;
+        }else if(numbers[0] == numbers[1] && numbers[1] == numbers[2] && numbers[2] == numbers[3]){
+            return 8;
+        }else {
+            while(result != 6174){
+                bigger = descendOrderToInt(numbers);
+                smaller = ascendOrderToInt(numbers);
+
+                result = bigger - smaller;
+                numbers = convertToArray(result);
+                counter++;
             }
         }
-        if (counter < 3){
-            // we tell the user that they must at least input two different digits
-            throw new Exception("AtLeastTwoDifferentDigits");
-        }
-        counter = 0;
-
-        while(result != 6174){
-            greaterNum = convertToInt(ascendOrder(numbers));
-            Arrays.sort(numbers);
-            lesserNumber= convertToInt(numbers);
-
-            result = greaterNum - lesserNumber;
-            numbers = convertToArray(result);
-            counter++;
-        }
-
 
         return counter;
     }
@@ -60,8 +49,10 @@ public class Kaprekar {
         return numbers;
     }
 
-    // returns an array with its numbers sorted in ascending order as the exercise specified
-    public static int[] ascendOrder(int[] nums) {
+    // returns an int from an array with its numbers sorted in descending order
+    public static int descendOrderToInt(int[] nums) {
+        // in this variable we will save array ordered as an int
+        int total;
         for(int i = 0; i < nums.length; i++){
             for(int j = i+1; j<nums.length; j++) {
                 if(nums[i] < nums[j]){
@@ -72,13 +63,30 @@ public class Kaprekar {
             }
         }
 
-        return nums;
+        total = convertToInt(nums);
+
+        return total;
     }
 
+    // returns an int from an array with its numbers sorted in ascending order
+    public static int ascendOrderToInt(int[] nums) {
+        // this value stores the sorted number as an integer
+        int total;
+        Arrays.sort(nums);
+
+        total = convertToInt(nums);
+
+        return total;
+    }
+
+
     public static void main(String[]args) throws Exception {
-        int[] array = {1, 2, 3, 4};
+        int[] array = {3,5,2,4};
         int num = 5000;
         int[] arrays = convertToArray(num);
-        System.out.println(constanteKaprekar(arrays));
+        System.out.println(Arrays.toString(array));
+        Arrays.sort(array);
+        System.out.println(Arrays.toString(array));
+        System.out.println(constanteKaprekar(array));
     }
 }
