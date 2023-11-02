@@ -12,6 +12,15 @@ public class Kaprekar {
         int bigger = 0;
         int smaller = 0;
 
+        // if a number is smaller than 4 digits it will fill the rest of digits
+        if(numbers.length < 4){
+            int remainingDigits = 4 - numbers.length;
+            int num = convertToInt(numbers);
+            num = (int) Math.pow(10, remainingDigits) * num;
+            numbers = convertToArray(num);
+        }
+
+        // we check if it already is Kaprekar's constant and if it's a repdigit
         if(convertToInt(numbers) == 6174){
             return 0;
         }else if(numbers[0] == numbers[1] && numbers[1] == numbers[2] && numbers[2] == numbers[3]){
@@ -22,6 +31,13 @@ public class Kaprekar {
                 smaller = ascendOrderToInt(numbers);
 
                 result = bigger - smaller;
+                if(result < 10){
+                    result *= 1000;
+                }else if(result < 100){
+                    result *= 100;
+                }else if(result < 1000){
+                    result *= 10;
+                }
                 numbers = convertToArray(result);
                 counter++;
             }
@@ -52,7 +68,9 @@ public class Kaprekar {
     // returns an int from an array with its numbers sorted in descending order
     public static int descendOrderToInt(int[] nums) {
         // in this variable we will save array ordered as an int
-        int total;
+        int total = 0;
+        int exponente = 4;
+
         for(int i = 0; i < nums.length; i++){
             for(int j = i+1; j<nums.length; j++) {
                 if(nums[i] < nums[j]){
@@ -81,12 +99,11 @@ public class Kaprekar {
 
 
     public static void main(String[]args) throws Exception {
-        int[] array = {1,1,2,1};
-        int num = 5000;
-        int[] arrays = convertToArray(num);
-        System.out.println(Arrays.toString(array));
-        Arrays.sort(array);
-        System.out.println(Arrays.toString(array));
-        System.out.println(constanteKaprekar(array));
+        System.out.printf("Número: %d, Iteraciones: %d\n", 5, constanteKaprekar(new int[]{5}));
+        System.out.printf("Número: %d, Iteraciones: %d\n", 3524, constanteKaprekar(new int[]{3,5,2,4}));
+        System.out.printf("Número: %d, Iteraciones: %d\n", 1111, constanteKaprekar(new int[]{1,1,1,1}));
+        System.out.printf("Número: %d, Iteraciones: %d\n", 1121, constanteKaprekar(new int[]{1,1,2,1}));
+        System.out.printf("Número: %d, Iteraciones: %d\n",6174,constanteKaprekar(new int[]{6,1,7,4}));
+        System.out.printf("Número: %d, Iteraciones: %d\n",1893, constanteKaprekar(new int[]{1,8,9,3}));
     }
 }
